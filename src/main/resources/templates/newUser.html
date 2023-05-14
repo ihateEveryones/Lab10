@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-6 mx-auto">
+            <form
+                    method="post"
+                    role="form"
+                    th:action="@{/createUser}"
+
+            >
+                <h1>Registration Form</h1>
+
+                <div class="mb-3">
+                    <label class="form-label" for="user_name">Name</label>
+                    <input class="form-control" id="user_name" name="user_name" type="text">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="user_phone">Phone</label>
+                    <input class="form-control" id="user_phone" name="user_phone" >
+
+                </div>
+                <div class="mb-3">
+                    <label class="col-sm-2 col-form-label" for="id_tariff">Id_Tariff</label>
+                    <input class="form-control" id="id_tariff" name="id_tariff" >
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary mb-3" type="submit">Create new user</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div><a href="/user/">назад</a></div>
+</body>
+</html>

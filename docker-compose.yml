@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    image: mysql:8.0.33
+    #restart: always
+    ports:
+      - "3307:3306"
+    volumes:
+      - db:/var/lib/mysql
+      - C:/Java/Sem3.2/lab9true/labs9.sql:/docker-entrypoint-initdb.d/labs9.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: qwer1234qwer
+      MYSQL_DATABASE: spsc
+    healthcheck:
+      test: "mysql -uroot -pqwer1234qwer spsc -e 'select 1'"
+      interval: 1s
+      retries: 120
+    cap_add:
+      - SYS_NICE
+
+  app:
+    build: .
+    #restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_APPLICATION_JSON: '{
+                  "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/spsc?characterEncoding=UTF-8&useUnicode=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true",
+                  "spring.datasource.username" : "root",
+                  "spring.datasource.password" : "qwer1234qwer",
+                  "spring.jpa.hibernate.ddl-auto" : "update",
+                  "spring.jpa.properties.hibernate.dialect": "org.hibernate.dialect.MySQL8Dialect"
+                }'
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+    volumes:
+      - .m2:/root/.m2
+      - C:/Java/Sem3.2/lab9true/labs9.sql:/docker-entrypoint-initdb.d/labs9.sql
+    stdin_open: true
+    tty: true
+    links:
+      - mysqldb
+volumes:
+  db:

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="'Welcome, ' + ${name} + '!'"></p>
+<table>
+    <thead>
+    <tr>
+        <th>id_tariff</th>
+        <th>name_tariff</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="tarif : ${tariff}">
+        <td style="text-align: center;" th:text="${tarif.id_tariff}"></td>
+        <td style="text-align: center;" th:text="${tarif.name_tariff}"></td>
+    </tr>
+    </tbody>
+</table>
+<div><a href="/user/">назад</a></div>
+</body>
+</html>
